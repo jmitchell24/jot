@@ -51,7 +51,7 @@ cmake --build .
 ### Basic Usage
 
 ```bash
-jot
+jot sometextiwanttotype
 ```
 
 ### Examples
@@ -61,16 +61,16 @@ jot
 jot 
 
 # Show Help 
-rene --help 
+jot --help 
 
 # Show Version 
-rene --version
+jot --version
 ```
 
 
 ## Roadmap
 
-- [x] I need date codes
+- [ ] I actually just want to type datecodes 
 - [ ] Everything else
 
 ## License
