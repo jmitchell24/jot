@@ -1,0 +1,12 @@
+//
+// Created by james on 28/12/25.
+//
+
+#pragma once
+
+#define JOT_NAME         "@PROJECT_NAME@"
+#define JOT_VERSION      "@PROJECT_VERSION@"
+#define JOT_RELEASE      "@PROJECT_RELEASE@"
+#define JOT_DESCRIPTION  "@PROJECT_DESCRIPTION@"
+
+namespace jot {}

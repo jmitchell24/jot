@@ -1,0 +1,14 @@
+.vs
+CMakeLists.txt.user*
+imgui.ini
+.idea
+cmake-build*
+
+
+junk
+notes
+scripts
+roms
+demos
+assets
+layouts

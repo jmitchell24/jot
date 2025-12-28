@@ -1,0 +1,110 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/uinput.h>
+#include <cstring>
+#include <iostream>
+#include <cctype>
+
+void emit(int fd, int type, int code, int val) {
+    struct input_event ie;
+    ie.type = type;
+    ie.code = code;
+    ie.value = val;
+    ie.time.tv_sec = 0;
+    ie.time.tv_usec = 0;
+    write(fd, &ie, sizeof(ie));
+}
+
+int get_keycode(char c) {
+    if (c >= 'a' && c <= 'z') return KEY_A + (c - 'a');
+    if (c >= 'A' && c <= 'Z') return KEY_A + (c - 'A');
+    if (c >= '0' && c <= '9') return KEY_1 + (c - '1');
+
+    switch(c) {
+        case ' ': return KEY_SPACE;
+        case '\n': return KEY_ENTER;
+        case '.': return KEY_DOT;
+        case ',': return KEY_COMMA;
+        case '-': return KEY_MINUS;
+        case '=': return KEY_EQUAL;
+        case '[': return KEY_LEFTBRACE;
+        case ']': return KEY_RIGHTBRACE;
+        case ';': return KEY_SEMICOLON;
+        case '\'': return KEY_APOSTROPHE;
+        case '/': return KEY_SLASH;
+        case '\\': return KEY_BACKSLASH;
+        default: return -1;
+    }
+}
+
+bool needs_shift(char c) {
+    return isupper(c) || strchr("!@#$%^&*()_+{}|:\"<>?", c) != nullptr;
+}
+
+void type_char(int fd, char c) {
+    int key = get_keycode(c);
+    if (key == -1) return;
+
+    if (needs_shift(c)) {
+        emit(fd, EV_KEY, KEY_LEFTSHIFT, 1);
+        emit(fd, EV_SYN, SYN_REPORT, 0);
+    }
+
+    emit(fd, EV_KEY, key, 1);
+    emit(fd, EV_SYN, SYN_REPORT, 0);
+    usleep(10000);
+
+    emit(fd, EV_KEY, key, 0);
+    emit(fd, EV_SYN, SYN_REPORT, 0);
+
+    if (needs_shift(c)) {
+        emit(fd, EV_KEY, KEY_LEFTSHIFT, 0);
+        emit(fd, EV_SYN, SYN_REPORT, 0);
+    }
+
+    usleep(20000);
+}
+
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        std::cout << "Usage: " << argv[0] << " \"text to type\"\n";
+        return 1;
+    }
+
+    int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
+    if (fd < 0) {
+        std::cerr << "Error opening /dev/uinput. Try: sudo chmod 666 /dev/uinput\n";
+        return 1;
+    }
+
+    ioctl(fd, UI_SET_EVBIT, EV_KEY);
+    ioctl(fd, UI_SET_EVBIT, EV_SYN);
+
+    for (int i = KEY_ESC; i <= KEY_KPDOT; i++)
+        ioctl(fd, UI_SET_KEYBIT, i);
+
+    struct uinput_setup usetup;
+    memset(&usetup, 0, sizeof(usetup));
+    usetup.id.bustype = BUS_USB;
+    usetup.id.vendor = 0x1234;
+    usetup.id.product = 0x5678;
+    strcpy(usetup.name, "Virtual Keyboard");
+
+    ioctl(fd, UI_DEV_SETUP, &usetup);
+    ioctl(fd, UI_DEV_CREATE);
+
+    sleep(1);
+
+    for (int i = 1; i < argc; i++) {
+        const char* text = argv[i];
+        for (size_t j = 0; j < strlen(text); j++) {
+            type_char(fd, text[j]);
+        }
+        if (i < argc - 1) type_char(fd, ' ');
+    }
+
+    ioctl(fd, UI_DEV_DESTROY);
+    close(fd);
+
+    return 0;
+}
