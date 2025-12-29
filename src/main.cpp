@@ -44,6 +44,7 @@ int main(int argc, char** argv)
     string text;
 
     int delay_start = 50;
+
     int delay_key   = 10;
     int delay_char  = 20;
 
