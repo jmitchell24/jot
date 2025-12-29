@@ -8,23 +8,14 @@
 //
 // jot
 //
+#include "jot.hpp"
 #include "typer.hpp"
 using namespace jot;
-
-
-
-
-
 
 //
 // ut
 //
-
 #include <ut/log.hpp>
-#include <ut/string.hpp>
-#include <ut/term.hpp>
-#include <ut/time.hpp>
-using namespace ut;
 
 //
 // std
@@ -32,14 +23,9 @@ using namespace ut;
 using namespace std;
 
 
-
-
-
-
-
 int main(int argc, char** argv)
 {
-    CLI::App app{"jot - Type stuff automatically on linux!"};
+    CLI::App app{JOT_NAME " - " JOT_DESCRIPTION};
 
     string text;
 
@@ -50,10 +36,6 @@ int main(int argc, char** argv)
 
     bool press_enter    = false;
     bool verbose        = false;
-
-
-
-
 
     app.add_option("text", text, "Text to type (use quotes for spaces)");
     app.add_option("-d,--delay", delay_start, "Initial delay in milliseconds before typing")->default_val(1000);
@@ -92,9 +74,6 @@ int main(int argc, char** argv)
     {
         ut_error("error: {}", ex.what());
     }
-
-
-
 
     return EXIT_SUCCESS;
 }
