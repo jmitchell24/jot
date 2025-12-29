@@ -54,6 +54,7 @@ int main(int argc, char** argv)
 
     if (text.empty())
     {
+
         text = local_datetime::now().str("%Y-%m-%d");
     }
 
