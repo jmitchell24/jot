@@ -51,6 +51,10 @@ int main(int argc, char** argv)
     bool press_enter    = false;
     bool verbose        = false;
 
+
+
+
+
     app.add_option("text", text, "Text to type (use quotes for spaces)");
     app.add_option("-d,--delay", delay_start, "Initial delay in milliseconds before typing")->default_val(1000);
     app.add_option("-k,--key-delay", delay_key, "Key press duration in milliseconds")->default_val(10);
