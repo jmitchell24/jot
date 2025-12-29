@@ -5,7 +5,7 @@
 #pragma once
 
 #define JOT_NAME         "jot"
-#define JOT_VERSION      "25.12.28"
+#define JOT_VERSION      "25.6.29"
 #define JOT_RELEASE      "alpha"
 #define JOT_DESCRIPTION  "A small linux utility that types"
 

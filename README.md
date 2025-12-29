@@ -4,7 +4,7 @@
 </p>
 
 
-# jot, a tiny program that types!
+# jot, a teeny little program that types (datecodes)!
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 ![Last Commit](https://img.shields.io/github/last-commit/jmitchell24/jot)
@@ -15,17 +15,13 @@
 [![Issues](https://img.shields.io/github/issues/jmitchell24/jot)](https://github.com/jmitchell24/jot/issues)
 [![Stars](https://img.shields.io/github/stars/jmitchell24/jot)](https://github.com/jmitchell24/jot/stargazers)
 
-
-
-
-** Need to type something on your linux machine but don't want to use your fingers, toes, or neural link? Try _jot_! **
-
-
+**Need to type something on your linux machine but don't want to use your fingers, toes, or neural link? Try _jot_!**
 
 ## Features
 
-- **Date Codes!**
-- **Other Things! Later... Maybe...**
+- **It types date codes by default!**
+- **If you ask it nicely it'll try to type your strings too**
+- **Other Neat Things! Later... Maybe...**
 
 ## Build Instructions
 
@@ -51,26 +47,29 @@ cmake --build .
 ### Basic Usage
 
 ```bash
-jot sometextiwanttotype
+jot
 ```
 
 ### Examples
 
 ```bash
-# Type out whatever I've hard-coded as a default 
+# Type a date code like '2025-12-22' (very useful feature)
 jot 
 
-# Show Help 
+# Type something less useful than a datecode 
+jot not-a-date-code
+
+# Show help 
 jot --help 
 
-# Show Version 
+# Show version 
 jot --version
 ```
 
 
 ## Roadmap
 
-- [ ] I actually just want to type datecodes 
+- [x] Type my datecodes for me 
 - [ ] Everything else
 
 ## License
