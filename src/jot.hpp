@@ -5,7 +5,7 @@
 #pragma once
 
 #define JOT_NAME         "jot"
-#define JOT_VERSION      "25.12.29"
+#define JOT_VERSION      "25.12.30"
 #define JOT_RELEASE      "alpha"
 #define JOT_DESCRIPTION  "a teeny little program that types (datecodes!)"
 

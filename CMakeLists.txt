@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(
     jot
-    VERSION "25.12.29"
+    VERSION "25.12.30"
     DESCRIPTION "a teeny little program that types (datecodes!)"
 )
 
