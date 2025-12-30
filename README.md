@@ -42,13 +42,19 @@ cmake --build .
 
 ```
 
-## Usage
 
 ### Basic Usage
 
 ```bash
-jot
+jot [OPTIONS] [SUBCOMMANDS]
 ```
+
+**Options:**
+- `-d, --delay <ms>` - Wait before typing (0-10000ms)
+- `-c, --char-delay <ms>` - Delay between characters (0-10000ms)
+- `-k, --key-delay <ms>` - Key press duration (0-10000ms)
+- `-e, --enter` - Press Enter after typing
+- `-v, --verbose` - Show detailed output
 
 ### Examples
 
@@ -56,8 +62,11 @@ jot
 # Type a date code like '2025-12-22' (very useful feature)
 jot 
 
+# Type a worse datecode 
+jot date "%Y%m%d_%H%M%S"
+
 # Type something less useful than a datecode 
-jot not-a-date-code
+jot text not-a-date-code
 
 # Show help 
 jot --help 
